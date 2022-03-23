@@ -1,6 +1,8 @@
 import React, { useState} from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native"
 
+import { InputBox , InputContainer, InputButton, ButtonText} from './styles'
+
 interface AddSkillProps {
   addSkill: (skill: string) => void
 }
@@ -8,19 +10,23 @@ interface AddSkillProps {
 export function AddSkill({addSkill} : AddSkillProps){
   const [ skill, setSkill ] = useState('')
 
+  function inputSkill(skill: string){
+    addSkill(skill)
+    setSkill('')
+  }
   return(
-    <View>
-      <TextInput
+    <InputContainer>
+      <InputBox
       placeholder="Skill Name"
       onChangeText={setSkill}
       value={skill}
       >
-      </TextInput>
-      <TouchableOpacity
-      onPress={() => addSkill(skill)}
+      </InputBox>
+      <InputButton
+      onPress={() => inputSkill(skill)}
       >
-        <Text>Add Skill</Text>
-      </TouchableOpacity>
-    </View>
+        <ButtonText>ADD</ButtonText>
+      </InputButton>
+    </InputContainer>
   )
 }
