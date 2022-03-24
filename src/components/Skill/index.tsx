@@ -1,5 +1,7 @@
 import React from "react";
-import { Text } from "react-native";
+import { TouchableOpacity } from "react-native";
+
+import { SkillText, SkillButton } from './styles'
 
 interface SkillProps {
   skill: string
@@ -7,6 +9,8 @@ interface SkillProps {
 
 export function Skill({ skill }: SkillProps ){
   return(
-    <Text>{skill}</Text>
+    <SkillButton>
+      <SkillText>{skill}</SkillText>
+    </SkillButton>
   )
 }
