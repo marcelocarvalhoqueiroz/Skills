@@ -9,7 +9,7 @@ import { AddSkill } from "../../components/AddSkill";
 import { Skill } from "../../components/Skill";
 
 interface Skill {
-  id: string;
+  id: number;
   skill: string;
 }
 
@@ -37,7 +37,7 @@ export function Home(){
       )
     }else{
       const dataSkill = {
-        id: String(skillId),
+        id: skillId,
         skill: skill
       }
       setSkillId(skillList.length + 1)
@@ -45,6 +45,27 @@ export function Home(){
     }
   }
 
+  function handleRemoveSkill(id: number){
+    Alert.alert(
+      `Remove item`,
+      `Are you sure?`
+    ),
+      [
+        {
+          text: 'No',
+          style: 'cancel'
+        },
+        {
+          text: 'Yes',
+          style: 'destructive',
+          onPress: () =>{
+            setSkillList(oldState => oldState.filter(
+              skill => skill.id !== id
+            ))
+          }
+        }
+      ]
+  }
   return(
     <AppContainer>
       <StatusBar style="light"/>
@@ -52,8 +73,7 @@ export function Home(){
       <AddSkill addSkill={HandleAddSkill}/>
       <FlatList
       data={skillList}
-      keyExtractor={item => item.id}
-      renderItem={ ( { item }) => <Skill skill={item.skill}/>}
+      renderItem={ ( { item }) => <Skill skillId={item.id} skill={item.skill} removeSkill={handleRemoveSkill}/>}
       />
     </AppContainer>
   )

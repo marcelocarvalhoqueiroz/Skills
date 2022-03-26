@@ -1,15 +1,18 @@
 import React from "react";
-import { TouchableOpacity } from "react-native";
-
 import { SkillText, SkillButton } from './styles'
 
 interface SkillProps {
-  skill: string
+  skillId: number;
+  skill: string;
+  removeSkill: (id: number) => void;
 }
 
-export function Skill({ skill }: SkillProps ){
+export function Skill({ skillId, skill, removeSkill}: SkillProps ){
+
   return(
-    <SkillButton>
+    <SkillButton
+    onPress={() => removeSkill(skillId)}
+    >
       <SkillText>{skill}</SkillText>
     </SkillButton>
   )
