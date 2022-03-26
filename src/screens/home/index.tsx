@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FlatList } from "react-native";
+import { FlatList, Alert } from "react-native";
 import { StatusBar } from 'expo-status-bar';
 
 import { Header } from "../../components/Header";
@@ -15,13 +15,34 @@ interface Skill {
 
 export function Home(){
   const [ skillList, setSkillList] = useState<Skill[]>([])
+  const [ skillId, setSkillId] = useState(1)
 
   function HandleAddSkill(skill: string){
-    const dataSkill = {
-      id: String(new Date().getTime()),
-      skill: skill
+    let equalSkill = false
+    
+    for(let i=0; i < skillList.length; i++){
+      if(skillList[i].skill == skill){
+        equalSkill = true
+      }
     }
-    setSkillList(oldState => [...oldState, dataSkill])
+    if(equalSkill){
+      Alert.alert(
+        `Skill already inserted`,
+        `Skill ${skill} exists on Skill List`,
+          [
+            {
+              text: 'OK'
+            }
+          ]
+      )
+    }else{
+      const dataSkill = {
+        id: String(skillId),
+        skill: skill
+      }
+      setSkillId(skillList.length + 1)
+      setSkillList(oldState => [...oldState, dataSkill])
+    }
   }
 
   return(
